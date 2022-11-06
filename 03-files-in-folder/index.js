@@ -6,7 +6,7 @@ fs.readdir(path.join(__dirname, "secret-folder"), {withFileTypes: true}, (err, d
     throw err
   }
   data.forEach((file) => {
-    let route = path.join(__dirname, `/secret-folder/` + file.name);
+    let route = path.join(__dirname, `secret-folder`, file.name);
     fs.stat(route, (err, stats) => {
       if(err) throw err
       if(stats.isFile()){
