@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const fsPromises = require("fs").promises;
 
-const dist = path.join(__dirname, "project-dist/bundle.css");
+const dist = path.join(__dirname, "project-dist", "bundle.css");
 const src = path.join(__dirname, "styles");
 
 fsPromises.writeFile(dist, "")
