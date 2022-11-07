@@ -19,7 +19,6 @@ fsPromises.writeFile(dist, "")
     return new Promise((resolve, reject) => {
       readWrite()
       async function readWrite() {
-        console.log("async func")
         for (const file of data) {
           if (path.extname(file.name) == '.css') {
             const content = await fsPromises.readFile(path.join(__dirname, "styles", file.name));
@@ -29,7 +28,7 @@ fsPromises.writeFile(dist, "")
           }
         }
       }
-      console.log("last")
+      console.log("bunlde.css Done!")
       resolve();
     })
 
