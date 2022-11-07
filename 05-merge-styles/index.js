@@ -9,25 +9,31 @@ const src = path.join(__dirname, "styles");
 fsPromises.writeFile(dist, "")
   .then(() => {
     return new Promise((resolve, reject) => {
-      fs.readdir(src, {withFileTypes: true}, (err, data) => {
-        if(err) console.log(err)
+      fs.readdir(src, { withFileTypes: true }, (err, data) => {
+        if (err) console.log(err)
         resolve(data)
+      })
     })
-    
-/*       
-        fs.readdir(src, {withFileTypes: true}, (err, data) => {
-      if(err) console.log(err)
-        for(const file of data) {
-        const extFile = path.extname(file.name);
-        if(extFile == '.css'){
-          console.log('23123')
-          //fsPromises.appendFile(dist, fsPromises.readFile(path.join(__dirname, file.name).toString()))
-          //fs.readFile(path.join(__dirname, file.name))
+  })
+  .then((data) => {
+    return new Promise((resolve, reject) => {
+      readWrite()
+      async function readWrite() {
+        console.log("async func")
+        for (const file of data) {
+          if (path.extname(file.name) == '.css') {
+            const content = await fsPromises.readFile(path.join(__dirname, "styles", file.name));
+            //console.log(content.toString())
+            const contentStr = "\n" + content.toString();
+            const writeContent = await fsPromises.appendFile(dist, contentStr);
+          }
         }
       }
- */
+      console.log("last")
+      resolve();
     })
-  }).then(data => console.log('it work', data))
+
+  })
   .catch((err) => console.log(err))
 
 
